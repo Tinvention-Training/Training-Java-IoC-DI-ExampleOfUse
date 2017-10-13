@@ -6,16 +6,13 @@ import net.tinvention.training.arch.gl.persistence.dto.PurchaseDto;
 
 /**
  * 
- * This class offer methods to save, retrieve, update , ... Purchases
+ * This interface offers methods to save, retrieve, update , ... Purchases
  * 
  * @author Stefano
  *
  */
-public class PurchaseDao {
+public interface PurchaseDao {
 
-	public List<PurchaseDto> selectPurchases(Long customerId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<PurchaseDto> selectPurchases(Long customerId);
 
 }

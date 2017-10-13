@@ -2,10 +2,10 @@ package net.tinvention.training.arch.gl.conf;
 
 import javax.sql.DataSource;
 
-import net.tinvention.training.arch.gl.bl.CustomerPurchaseLogic;
-import net.tinvention.training.arch.gl.bl.CustomerRegistryLogic;
-import net.tinvention.training.arch.gl.persistence.CustomerDao;
-import net.tinvention.training.arch.gl.persistence.PurchaseDao;
+import net.tinvention.training.arch.gl.bl.impl.CustomerPurchaseLogicImpl;
+import net.tinvention.training.arch.gl.bl.impl.CustomerRegistryLogicImpl;
+import net.tinvention.training.arch.gl.persistence.impl.CustomerDaoImpl;
+import net.tinvention.training.arch.gl.persistence.impl.PurchaseDaoImpl;
 import net.tinvention.training.arch.gl.ui.ApplicationUI;
 
 /**
@@ -27,13 +27,15 @@ public class LayerConfigurer {
 	public static ApplicationUI getApplicaitonConfigured() {
 		DataSource dataSource = null; //TODO may you can use jndi lookup or other ways..
 		
-		CustomerDao customerDao = new CustomerDao(dataSource);//Inject by constructor
-		PurchaseDao purchaseDao = new PurchaseDao(); //TODO to be implemented DI ..
+		CustomerDaoImpl customerDao = new CustomerDaoImpl(dataSource);//Inject by constructor
+		customerDao.setDataSource(dataSource);
 		
-		CustomerPurchaseLogic customerPurchaseLogic = new CustomerPurchaseLogic();
+		PurchaseDaoImpl purchaseDao = new PurchaseDaoImpl(); //TODO to be implemented DI ..
+		
+		CustomerPurchaseLogicImpl customerPurchaseLogic = new CustomerPurchaseLogicImpl();
 		customerPurchaseLogic.setPurchaseDao(purchaseDao);
 	
-		CustomerRegistryLogic customerRegistryLogic = new CustomerRegistryLogic();
+		CustomerRegistryLogicImpl customerRegistryLogic = new CustomerRegistryLogicImpl();
 		customerRegistryLogic.setCustomerDao(customerDao);
 		customerRegistryLogic.setCustomerPurchaseLogic(customerPurchaseLogic);
 		
